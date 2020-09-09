@@ -3,11 +3,12 @@ const fs = require("fs");
 const client = new Discord.Client({
     disableEveryone: true,
   });
+const prefix = process.env.PREFIX;
 const token = process.env.TOKEN;
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.categories = fs.readdirSync("./commands/");
-client.prefix = config.prefix;
+client.prefix = process.env.PREFIX;
 
 ["command", "event"].forEach(handler => {
     require(`./handlers/${handler}`)(client);
@@ -21,6 +22,6 @@ client.prefix = config.prefix;
     require("./events/guild/memberRemove")(message)
   })
 
-  client.login(process.env.PREFIX);
+  client.login(process.env.TOKEN);
 
 
